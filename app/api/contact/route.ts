@@ -1,9 +1,11 @@
 import { NextResponse } from "next/server";
 
 const CHAT_IDS = [
-  "7723673046", // Алексей
-  "8733658390", // Друг
-];
+  process.env.TELEGRAM_CHAT_ID_1 || "7723673046", // Алексей
+  process.env.TELEGRAM_CHAT_ID_2 || "8733658390", // Друг
+  process.env.TELEGRAM_CHAT_ID_3 || "-1003636377506", // Группа
+  process.env.TELEGRAM_CHAT_ID_4, // Четвёртый (если добавишь)
+].filter(Boolean) as string[];
 
 export async function POST(request: Request) {
   try {
@@ -49,7 +51,6 @@ ${data.comment || "-"}
     return NextResponse.json({ success: true });
   } catch (error) {
     console.error(error);
-
     return NextResponse.json(
       { success: false },
       { status: 500 }
