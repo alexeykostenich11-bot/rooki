@@ -1,7 +1,10 @@
+"use client";
+
+import { useState } from "react";
 import { links } from "@/lib/links";
 import { Section } from "./Section";
 
-const projects = [
+const socials = [
   {
     name: "Instagram",
     description: "Фото готовых объектов и процесс работ",
@@ -58,16 +61,84 @@ const projects = [
   },
 ];
 
+const gallery = [
+  { src: "/projects/zelenaya-stena-1.jpg", caption: "Акцентная стена, гостиная", tag: "Готовый объект" },
+  { src: "/projects/zelenaya-stena-2.jpg", caption: "Акцентная стена, деталь", tag: "Готовый объект" },
+  { src: "/projects/vannaya-zerkalo.jpg", caption: "Санузел, зона умывальника", tag: "Готовый объект" },
+  { src: "/projects/vannaya-dush.jpg", caption: "Санузел, душевая зона", tag: "Готовый объект" },
+  { src: "/projects/rebristaya-panel-1.jpg", caption: "Рельефная стеновая панель", tag: "Готовый объект" },
+  { src: "/projects/rebristaya-panel-2.jpg", caption: "Рельефная панель, деталь", tag: "Готовый объект" },
+  { src: "/projects/mansarda.jpg", caption: "Мансардный этаж", tag: "Готовый объект" },
+  { src: "/projects/lestnitsa-mramor.jpg", caption: "Холл, мрамор и шпон", tag: "Готовый объект" },
+  { src: "/projects/gostinaya-proekt.jpg", caption: "Гостиная-кухня", tag: "Дизайн-проект" },
+  { src: "/projects/kuhnya-proekt.jpg", caption: "Кухня", tag: "Дизайн-проект" },
+];
+
 export function Projects() {
+  const [activeIndex, setActiveIndex] = useState<number | null>(null);
+
   return (
     <Section
       id="projects"
       label="Наши проекты"
-      title="Смотрите реальные объекты в соцсетях"
+      title="Реальные объекты и дизайн-проекты"
       className="bg-neutral-50/60"
     >
-      <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-        {projects.map((project, index) => (
+      <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-5">
+        {gallery.map((item, index) => (
+          <button
+            key={item.src}
+            type="button"
+            onClick={() => setActiveIndex(index)}
+            className="group relative aspect-square overflow-hidden rounded-2xl bg-neutral-100"
+          >
+            <img
+              src={item.src}
+              alt={item.caption}
+              loading="lazy"
+              className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
+            />
+            <span className="absolute left-2 top-2 rounded-full bg-white/90 px-2.5 py-1 text-[11px] font-medium text-neutral-700 backdrop-blur-sm">
+              {item.tag}
+            </span>
+            <span className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/60 to-transparent p-3 text-left text-xs font-medium text-white opacity-0 transition-opacity group-hover:opacity-100">
+              {item.caption}
+            </span>
+          </button>
+        ))}
+      </div>
+
+      {activeIndex !== null && (
+        <div
+          className="fixed inset-0 z-[60] flex items-center justify-center bg-neutral-950/90 p-4 backdrop-blur-sm"
+          onClick={() => setActiveIndex(null)}
+        >
+          <button
+            type="button"
+            aria-label="Закрыть"
+            onClick={() => setActiveIndex(null)}
+            className="absolute right-4 top-4 flex h-10 w-10 items-center justify-center rounded-full bg-white/10 text-white transition-colors hover:bg-white/20"
+          >
+            ✕
+          </button>
+          <div
+            className="max-h-[85vh] max-w-3xl overflow-hidden rounded-3xl"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <img
+              src={gallery[activeIndex].src}
+              alt={gallery[activeIndex].caption}
+              className="max-h-[85vh] w-full object-contain"
+            />
+            <div className="bg-neutral-950 px-4 py-3 text-center text-sm text-white">
+              {gallery[activeIndex].caption} · {gallery[activeIndex].tag}
+            </div>
+          </div>
+        </div>
+      )}
+
+      <div className="mt-12 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+        {socials.map((project, index) => (
           <a
             key={project.name}
             href={project.href}
@@ -93,20 +164,6 @@ export function Projects() {
               Перейти →
             </span>
           </a>
-        ))}
-      </div>
-      <div className="mt-10 columns-1 gap-4 sm:columns-2 lg:columns-3">
-        {[
-          "https://res.cloudinary.com/dfy58ww6t/image/upload/f_auto,q_auto/IMG_20260624_233731_xn2ghn",
-          "https://res.cloudinary.com/dfy58ww6t/image/upload/f_auto,q_auto/IMG_20260624_233759_hjo2hs",
-        ].map((src, i) => (
-          <div key={i} className="mb-4 overflow-hidden rounded-2xl">
-            <img
-              src={src}
-              alt={`Проект ${i + 1}`}
-              className="w-full object-cover transition-transform duration-500 hover:scale-105"
-            />
-          </div>
         ))}
       </div>
     </Section>

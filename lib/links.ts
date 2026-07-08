@@ -9,7 +9,7 @@ const socialPhone = "79852874431";
 
 export const links = {
   instagram: "https://www.instagram.com/rooki.remont",
-  telegram: `https://t.me/+${socialPhone}`,
+  telegram: "https://t.me/rooki_remont",
   /** MAX не поддерживает ссылки по номеру — вставьте ссылку из профиля (QR → Поделиться) */
   max: "#",
   whatsapp: `https://wa.me/${socialPhone}`,

@@ -41,6 +41,28 @@ export function Footer() {
           ))}
         </div>
       </div>
+
+      <div className="border-t border-neutral-200/80">
+        <div className="mx-auto flex max-w-6xl flex-wrap items-center justify-center gap-8 px-4 py-10 sm:justify-start sm:px-6 md:px-8">
+          {(
+            [
+              ["/qr/qr-site.svg", "Сайт", "rooki-remont.ru"],
+              ["/qr/qr-instagram.svg", "Instagram", "@rooki.remont"],
+              ["/qr/qr-telegram.svg", "Telegram", "@rooki_remont"],
+            ] as const
+          ).map(([src, label, sub]) => (
+            <div key={label} className="flex flex-col items-center gap-2">
+              <div className="h-20 w-20 overflow-hidden rounded-xl border border-neutral-200 p-1.5">
+                <img src={src} alt={`QR-код: ${label}`} className="h-full w-full" />
+              </div>
+              <div className="text-center">
+                <p className="text-xs font-medium text-neutral-700">{label}</p>
+                <p className="text-[11px] text-neutral-400">{sub}</p>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
     </footer>
   );
 }
