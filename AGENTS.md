@@ -1,6 +1,5 @@
-# eve Agent App
+<!-- BEGIN:nextjs-agent-rules -->
+# This is NOT the Next.js you know
 
-This project uses the eve framework. Before writing code, always read the relevant guide in `node_modules/eve/dist/docs/public/`.
-
-Use `eve` lowercase in user-facing copy, docs, prompts, and comments. Do not
-title-case it unless it is part of an exact external title or quoted text.
+This version has breaking changes — APIs, conventions, and file structure may all differ from your training data. Read the relevant guide in `node_modules/next/dist/docs/` before writing any code. Heed deprecation notices.
+<!-- END:nextjs-agent-rules -->
