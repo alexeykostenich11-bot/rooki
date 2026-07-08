@@ -28,7 +28,7 @@ export function Header() {
 
         <div className="flex items-center gap-2 sm:gap-3">
           <a
-            href={links.whatsapp}
+            href={links.telegram}
             target="_blank"
             rel="noopener noreferrer"
             className="hidden rounded-full bg-neutral-950 px-4 py-2 text-sm font-medium text-white transition-all hover:bg-neutral-800 hover:shadow-lg hover:shadow-neutral-950/10 active:scale-[0.98] sm:inline-flex"

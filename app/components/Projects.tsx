@@ -41,20 +41,17 @@ const socials = [
     ),
   },
   {
-    name: "WhatsApp",
-    description: "Напишите нам — ответим быстро",
-    href: links.whatsapp,
+    name: "MAX",
+    description: "Ещё один канал связи с нашей командой",
+    href: links.max,
     icon: (
       <svg viewBox="0 0 24 24" fill="none" className="h-6 w-6" aria-hidden>
         <path
-          d="M12 3a9 9 0 00-7.8 13.5L3 21l4.6-1.2A9 9 0 1012 3z"
+          d="M4 6l8 6 8-6M4 6v12h16V6"
           stroke="currentColor"
           strokeWidth="1.5"
           strokeLinejoin="round"
-        />
-        <path
-          d="M9.5 10.5c.3.6 1.2 2.3 3 3.2 1 .5 1.8.7 2.2.8.4.1.8 0 1.1-.3l.7-.7c.2-.2.5-.2.7 0l1.3 1.2c.2.2.2.5 0 .7-.5.6-1.2 1.2-2 1.5-1 .4-2.1.3-3.5-.4-1.8-.9-3.3-2.5-4-4.2-.5-1.2-.6-2.2-.3-3 .2-.5.6-1 1-1.3.2-.2.5-.2.7 0l1 1.1c.2.2.2.5 0 .7l-.4.4c-.1.1-.1.3 0 .5z"
-          fill="currentColor"
+          strokeLinecap="round"
         />
       </svg>
     ),
@@ -137,7 +134,7 @@ export function Projects() {
         </div>
       )}
 
-      <div className="mt-12 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+      <div className="mt-12 grid gap-4 sm:grid-cols-3 max-w-3xl mx-auto">
         {socials.map((project, index) => (
           <a
             key={project.name}

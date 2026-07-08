@@ -66,13 +66,13 @@ export function MobileMenu() {
             </a>
           ))}
           <a
-            href={links.whatsapp}
+            href={links.telegram}
             target="_blank"
             rel="noopener noreferrer"
             onClick={() => setOpen(false)}
             className="mt-1 rounded-2xl bg-neutral-950 px-4 py-3.5 text-center text-base font-medium text-white transition-colors hover:bg-neutral-800"
           >
-            Связаться в WhatsApp
+            Связаться в Telegram
           </a>
         </nav>
       </div>

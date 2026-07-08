@@ -11,6 +11,6 @@ export const links = {
   instagram: "https://www.instagram.com/rooki.remont",
   telegram: "https://t.me/rooki_remont",
   /** MAX не поддерживает ссылки по номеру — вставьте ссылку из профиля (QR → Поделиться) */
-  max: "#",
+  max: "https://max.ru/join/_-Tb_tGKcng8B2A4OCy6apccllLKHeHEz4nrLjF5WZw",
   whatsapp: `https://wa.me/${socialPhone}`,
 };

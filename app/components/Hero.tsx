@@ -36,7 +36,7 @@ export function Hero() {
               Посмотреть проекты
             </a>
             <a
-              href={links.whatsapp}
+              href={links.telegram}
               target="_blank"
               rel="noopener noreferrer"
               className="inline-flex h-12 w-full items-center justify-center rounded-full px-4 text-sm font-medium text-neutral-500 transition-all hover:text-neutral-950 active:scale-[0.98] sm:w-auto sm:self-center sm:px-7"

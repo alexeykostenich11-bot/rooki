@@ -1,6 +1,15 @@
 import { links, phone } from "@/lib/links";
 import { Logo } from "./Logo";
 
+const qrCodes = [
+  { src: "/qr/qr-instagram.svg", label: "Instagram", sub: "@rooki.remont" },
+  { src: "/qr/qr-telegram.svg", label: "Telegram", sub: "@rooki_remont" },
+  // MAX QR появится здесь автоматически, как только в lib/links.ts будет реальная ссылка
+  ...(links.max !== "#"
+    ? [{ src: "/qr/qr-max.svg", label: "MAX", sub: "rooki.remont" }]
+    : []),
+];
+
 export function Footer() {
   return (
     <footer className="border-t border-neutral-200/80 bg-white safe-bottom">
@@ -24,7 +33,6 @@ export function Footer() {
               ["Instagram", links.instagram],
               ["Telegram", links.telegram],
               ["MAX", links.max],
-              ["WhatsApp", links.whatsapp],
             ] as const
           ).map(([label, href]) => (
             <a
@@ -44,13 +52,7 @@ export function Footer() {
 
       <div className="border-t border-neutral-200/80">
         <div className="mx-auto flex max-w-6xl flex-wrap items-center justify-center gap-8 px-4 py-10 sm:justify-start sm:px-6 md:px-8">
-          {(
-            [
-              ["/qr/qr-site.svg", "Сайт", "rooki-remont.ru"],
-              ["/qr/qr-instagram.svg", "Instagram", "@rooki.remont"],
-              ["/qr/qr-telegram.svg", "Telegram", "@rooki_remont"],
-            ] as const
-          ).map(([src, label, sub]) => (
+          {qrCodes.map(({ src, label, sub }) => (
             <div key={label} className="flex flex-col items-center gap-2">
               <div className="h-20 w-20 overflow-hidden rounded-xl border border-neutral-200 p-1.5">
                 <img src={src} alt={`QR-код: ${label}`} className="h-full w-full" />
