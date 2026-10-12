@@ -6,6 +6,7 @@ export const site = {
   shortTitle: "ROOKI · Москва",
   description:
     "Организуем ремонт квартир под ключ в Москве: смета, материалы, контроль работ и мебель. От первой сметы до готового пространства.",
-  url: "https://rooki-site-xi.vercel.app",
+  /** Задаётся в переменной NEXT_PUBLIC_SITE_URL на хостинге, когда подключён домен .ru */
+  url: process.env.NEXT_PUBLIC_SITE_URL || "https://rooki-site-xi.vercel.app",
   locale: "ru_RU",
 };

@@ -1,12 +1,6 @@
 import type { Metadata, Viewport } from "next";
-import { Geist } from "next/font/google";
 import { site } from "@/lib/site";
 import "./globals.css";
-
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin", "cyrillic"],
-});
 
 export const metadata: Metadata = {
   metadataBase: new URL(site.url),
@@ -53,7 +47,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="ru" className={`${geistSans.variable} scroll-smooth`}>
+    <html lang="ru" className="scroll-smooth">
       <body className="min-h-screen bg-[#FAFAFA] font-sans text-neutral-950 antialiased">
         {children}
       </body>

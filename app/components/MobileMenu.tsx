@@ -4,11 +4,13 @@ import { useEffect, useState } from "react";
 import { links } from "@/lib/links";
 
 const navItems = [
-  { href: "#why", label: "О нас" },
-  { href: "#services", label: "Услуги" },
-  { href: "#process", label: "Процесс" },
-  { href: "#projects", label: "Проекты" },
-  { href: "#contact", label: "Заявка" },
+  { href: "/#why", label: "О нас" },
+  { href: "/#calc", label: "Калькулятор" },
+  { href: "/#projects", label: "Проекты" },
+  { href: "/#services", label: "Услуги" },
+  { href: "/#process", label: "Процесс" },
+  { href: "/#contact", label: "Заявка" },
+  { href: "/register", label: "Регистрация" },
 ];
 
 export function MobileMenu() {

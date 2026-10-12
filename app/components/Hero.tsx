@@ -15,19 +15,19 @@ export function Hero() {
             {site.name} · {site.tagline}
           </p>
           <h1 className="animate-fade-up animation-delay-100 text-[1.75rem] leading-[1.15] font-semibold tracking-tight text-neutral-950 sm:text-4xl md:text-6xl md:leading-[1.08]">
-            Управляем ремонтом от первой сметы до готового пространства.
+            Ремонт квартир в Москве под ключ: смета до старта, одна точка ответственности.
           </h1>
           <p className="animate-fade-up animation-delay-200 mx-auto mt-5 max-w-2xl text-base leading-relaxed text-neutral-500 sm:mt-6 sm:text-lg md:mt-8 md:text-xl">
-            Организуем ремонт квартир под ключ в Москве: смета, материалы,
-            контроль работ и мебель.
+            Посчитаем стоимость за минуту, выедем на замер и зафиксируем цену и
+            сроки в договоре. Фото и видео с объекта каждую неделю.
           </p>
 
           <div className="animate-fade-up animation-delay-300 mt-8 flex flex-col gap-3 sm:mt-10 md:mt-12">
             <a
-              href="#contact"
+              href="#calc"
               className="inline-flex h-12 w-full items-center justify-center rounded-full bg-neutral-950 px-7 text-sm font-medium text-white transition-all hover:bg-neutral-800 hover:shadow-xl hover:shadow-neutral-950/15 active:scale-[0.98] sm:w-auto sm:self-center"
             >
-              Рассчитать стоимость
+              Рассчитать стоимость за минуту
             </a>
             <a
               href="#projects"

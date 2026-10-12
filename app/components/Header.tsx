@@ -3,9 +3,11 @@ import { Logo } from "./Logo";
 import { MobileMenu } from "./MobileMenu";
 
 const navItems = [
-  { href: "#services", label: "Услуги" },
-  { href: "#process", label: "Процесс" },
-  { href: "#projects", label: "Проекты" },
+  { href: "/#calc", label: "Калькулятор" },
+  { href: "/#projects", label: "Проекты" },
+  { href: "/#services", label: "Услуги" },
+  { href: "/#process", label: "Процесс" },
+  { href: "/register", label: "Регистрация" },
 ];
 
 export function Header() {

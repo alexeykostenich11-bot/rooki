@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { site } from "@/lib/site";
 
 type LogoProps = {
@@ -7,8 +8,8 @@ type LogoProps = {
 
 export function Logo({ className = "", showTagline = false }: LogoProps) {
   return (
-    <a
-      href="#"
+    <Link
+      href="/"
       className={`group inline-flex items-center gap-2.5 transition-opacity hover:opacity-80 ${className}`}
     >
       <span className="flex h-8 w-8 items-center justify-center rounded-xl bg-neutral-950 text-sm font-semibold text-white md:h-9 md:w-9 md:rounded-2xl">
@@ -24,6 +25,6 @@ export function Logo({ className = "", showTagline = false }: LogoProps) {
           </span>
         )}
       </span>
-    </a>
+    </Link>
   );
 }
