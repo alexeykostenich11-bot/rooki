@@ -1,3 +1,4 @@
+import { BeforeAfter } from "./components/BeforeAfter";
 import { Calculator } from "./components/Calculator";
 import { ContactForm } from "./components/ContactForm";
 import { Footer } from "./components/Footer";
@@ -16,6 +17,7 @@ export default function Home() {
       <main>
         <Hero />
         <Calculator />
+        <BeforeAfter />
         <Projects />
         <Services />
         <HowWeWork />

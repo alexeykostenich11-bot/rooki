@@ -6,6 +6,7 @@ import { links } from "@/lib/links";
 const navItems = [
   { href: "/#why", label: "О нас" },
   { href: "/#calc", label: "Калькулятор" },
+  { href: "/#before-after", label: "До и после" },
   { href: "/#projects", label: "Проекты" },
   { href: "/#services", label: "Услуги" },
   { href: "/#process", label: "Процесс" },

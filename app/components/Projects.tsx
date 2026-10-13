@@ -59,12 +59,18 @@ const socials = [
 ];
 
 const gallery = [
-  { src: "/projects/zelenaya-stena-1.jpg", caption: "Акцентная стена, гостиная", tag: "Готовый объект" },
-  { src: "/projects/zelenaya-stena-2.jpg", caption: "Акцентная стена, деталь", tag: "Готовый объект" },
+  { src: "/projects/gostinaya-kamin.jpg", caption: "Гостиная, камин и кафель", tag: "Готовый объект" },
+  { src: "/projects/sanuzel-ornament.jpg", caption: "Санузел, плитка с орнаментом", tag: "Готовый объект" },
+  { src: "/projects/vannaya-okno.jpg", caption: "Ванная комната с окном", tag: "Готовый объект" },
+  { src: "/projects/potolok-lyustry.jpg", caption: "Потолок из дерева и люстры", tag: "Готовый объект" },
+  { src: "/projects/dush-stiralka.jpg", caption: "Душевая и стиральная машина", tag: "Готовый объект" },
+  { src: "/projects/tualet-installyatsiya.jpg", caption: "Санузел с инсталляцией", tag: "Готовый объект" },
+  { src: "/projects/gostinaya-lyustra.jpg", caption: "Гостиная после ремонта", tag: "Готовый объект" },
+  { src: "/projects/panel-3d.jpg", caption: "Объёмная 3D панель", tag: "Готовый объект" },
+  { src: "/projects/nishi-podsvetka.jpg", caption: "Ниши с подсветкой", tag: "Готовый объект" },
   { src: "/projects/vannaya-zerkalo.jpg", caption: "Санузел, зона умывальника", tag: "Готовый объект" },
   { src: "/projects/vannaya-dush.jpg", caption: "Санузел, душевая зона", tag: "Готовый объект" },
   { src: "/projects/rebristaya-panel-1.jpg", caption: "Рельефная стеновая панель", tag: "Готовый объект" },
-  { src: "/projects/rebristaya-panel-2.jpg", caption: "Рельефная панель, деталь", tag: "Готовый объект" },
   { src: "/projects/mansarda.jpg", caption: "Мансардный этаж", tag: "Готовый объект" },
   { src: "/projects/lestnitsa-mramor.jpg", caption: "Холл, мрамор и шпон", tag: "Готовый объект" },
   { src: "/projects/gostinaya-proekt.jpg", caption: "Гостиная-кухня", tag: "Дизайн-проект" },
@@ -81,7 +87,7 @@ export function Projects() {
       title="Реальные объекты и дизайн-проекты"
       className="bg-neutral-50/60"
     >
-      <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-5">
+      <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-4">
         {gallery.map((item, index) => (
           <button
             key={item.src}

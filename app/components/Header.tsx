@@ -4,6 +4,7 @@ import { MobileMenu } from "./MobileMenu";
 
 const navItems = [
   { href: "/#calc", label: "Калькулятор" },
+  { href: "/#before-after", label: "До и после" },
   { href: "/#projects", label: "Проекты" },
   { href: "/#services", label: "Услуги" },
   { href: "/#process", label: "Процесс" },
