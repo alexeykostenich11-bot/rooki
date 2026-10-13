@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { CHAT_IDS } from "@/lib/chatIds";
+import { sendToAll } from "@/lib/telegram";
 
 
 
@@ -20,29 +20,14 @@ export async function POST(request: Request) {
 ${data.comment || "-"}
 `;
 
-    const token = process.env.TELEGRAM_BOT_TOKEN;
-
-    if (!token) {
+    try {
+      await sendToAll(message);
+    } catch {
       return NextResponse.json(
         { error: "Telegram token not found" },
         { status: 500 }
       );
     }
-
-    await Promise.all(
-      CHAT_IDS.map((chatId) =>
-        fetch(`https://api.telegram.org/bot${token}/sendMessage`, {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            chat_id: chatId,
-            text: message,
-          }),
-        })
-      )
-    );
 
     return NextResponse.json({ success: true });
   } catch (error) {

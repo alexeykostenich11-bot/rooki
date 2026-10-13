@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { CHAT_IDS } from "@/lib/chatIds";
+import { sendToAll } from "@/lib/telegram";
 
 
 
@@ -43,11 +43,6 @@ export async function POST(request: Request) {
       return NextResponse.json({ error: "invalid" }, { status: 400 });
     }
 
-    const token = process.env.TELEGRAM_BOT_TOKEN;
-    if (!token) {
-      return NextResponse.json({ error: "no_token" }, { status: 500 });
-    }
-
     const snippet = `{ name: ${JSON.stringify(name)}, object: ${JSON.stringify(
       object || "Москва"
     )}, rating: ${rating}, text: ${JSON.stringify(text)} },`;
@@ -63,15 +58,11 @@ ${text}
 Чтобы опубликовать, добавьте в lib/reviews.ts строку (или напишите Claude «опубликуй отзыв»):
 ${snippet}`;
 
-    await Promise.all(
-      CHAT_IDS.map((chat_id) =>
-        fetch(`https://api.telegram.org/bot${token}/sendMessage`, {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ chat_id, text: message }),
-        })
-      )
-    );
+    try {
+      await sendToAll(message);
+    } catch {
+      return NextResponse.json({ error: "no_token" }, { status: 500 });
+    }
 
     return NextResponse.json({ success: true });
   } catch (error) {
