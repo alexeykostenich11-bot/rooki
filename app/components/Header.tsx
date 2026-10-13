@@ -1,5 +1,6 @@
 import { links } from "@/lib/links";
 import { Logo } from "./Logo";
+import { AuthLink } from "./AuthLink";
 import { MobileMenu } from "./MobileMenu";
 
 const navItems = [
@@ -7,7 +8,7 @@ const navItems = [
   { href: "/#projects", label: "Проекты" },
   { href: "/#services", label: "Услуги" },
   { href: "/#process", label: "Процесс" },
-  { href: "/register", label: "Регистрация" },
+  { href: "/masters", label: "Мастера" },
 ];
 
 export function Header() {
@@ -29,6 +30,7 @@ export function Header() {
         </nav>
 
         <div className="flex items-center gap-2 sm:gap-3">
+          <AuthLink className="hidden rounded-full border border-neutral-200 px-4 py-2 text-sm font-medium text-neutral-700 transition-colors hover:border-neutral-300 hover:text-neutral-950 sm:inline-flex" />
           <a
             href={links.telegram}
             target="_blank"

@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { links, phone } from "@/lib/links";
 import { Logo } from "./Logo";
 
@@ -18,6 +19,10 @@ export function Footer() {
           <Logo />
           <p className="mt-4 text-sm text-neutral-500">
             Москва и Московская область
+          </p>
+          <p className="mt-3 flex gap-4 text-xs text-neutral-400">
+            <Link href="/privacy" className="hover:text-neutral-700">Политика конфиденциальности</Link>
+            <Link href="/terms" className="hover:text-neutral-700">Правила сайта</Link>
           </p>
           <a
             href={`tel:${phone.tel}`}

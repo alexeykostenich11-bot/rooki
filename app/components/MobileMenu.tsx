@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { links } from "@/lib/links";
+import { AuthLink } from "./AuthLink";
 
 const navItems = [
   { href: "/#why", label: "О нас" },
@@ -10,7 +11,7 @@ const navItems = [
   { href: "/#services", label: "Услуги" },
   { href: "/#process", label: "Процесс" },
   { href: "/#contact", label: "Заявка" },
-  { href: "/register", label: "Регистрация" },
+  { href: "/masters", label: "Мастера" },
 ];
 
 export function MobileMenu() {
@@ -67,6 +68,10 @@ export function MobileMenu() {
               {item.label}
             </a>
           ))}
+          <AuthLink
+            onClick={() => setOpen(false)}
+            className="rounded-2xl px-4 py-3.5 text-base font-medium text-neutral-700 transition-colors hover:bg-neutral-50 hover:text-neutral-950"
+          />
           <a
             href={links.telegram}
             target="_blank"

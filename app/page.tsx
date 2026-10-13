@@ -1,6 +1,7 @@
 import { Calculator } from "./components/Calculator";
 import { ContactForm } from "./components/ContactForm";
 import { Footer } from "./components/Footer";
+import { ForMasters } from "./components/ForMasters";
 import { Header } from "./components/Header";
 import { Hero } from "./components/Hero";
 import { HowWeWork } from "./components/HowWeWork";
@@ -21,6 +22,7 @@ export default function Home() {
         <HowWeWork />
         <Trust />
         <WhyChooseUs />
+        <ForMasters />
         <ContactForm />
       </main>
       <Footer />
