@@ -2,6 +2,7 @@
  * Кому слать уведомления в Telegram (заявки и отзывы).
  * Берём ВСЕ переменные вида TELEGRAM_CHAT_ID, TELEGRAM_CHAT_ID_1, _2, _3 ... _99
  * плюс список через запятую в TELEGRAM_CHAT_IDS. Повторы убираем.
+ * Единственный источник правды: настройки Vercel. Убрали переменную, человек больше не получает сообщения.
  * Чтобы добавить человека или группу: заведите в Vercel новую переменную
  * (например TELEGRAM_CHAT_ID_5) со значением из номера чата и сделайте Redeploy.
  */
@@ -14,9 +15,6 @@ const fromList = (process.env.TELEGRAM_CHAT_IDS || "")
   .map((s) => s.trim())
   .filter(Boolean);
 
-// Запасные значения на случай, если переменные в Vercel не заданы
-const fallback = ["7723673046", "8733658390", "-1003636377506"];
-
 export const CHAT_IDS = Array.from(
-  new Set([...fromEnv, ...fromList, ...fallback].filter(Boolean))
+  new Set([...fromEnv, ...fromList].filter(Boolean))
 );
