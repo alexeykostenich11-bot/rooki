@@ -48,7 +48,9 @@ export function Calculator() {
           area: `${area} м²`,
           objectType: object.title,
           location: "Не указано",
-          comment: summary,
+          comment: [String(fd.get("comment") || "").trim(), summary]
+            .filter(Boolean)
+            .join("\n\n"),
         }),
       });
       if (response.ok) {
@@ -176,6 +178,13 @@ export function Calculator() {
               autoComplete="tel"
               placeholder="+7 (___) ___-__-__"
               className="h-12 w-full rounded-2xl border border-white/10 bg-white/5 px-4 text-base text-white outline-none placeholder:text-neutral-500 focus:border-white/30"
+            />
+            <textarea
+              name="comment"
+              rows={3}
+              maxLength={1000}
+              placeholder="Комментарий: район, что нужно сделать, есть ли дизайн-проект"
+              className="w-full resize-none rounded-2xl border border-white/10 bg-white/5 px-4 py-3 text-base text-white outline-none placeholder:text-neutral-500 focus:border-white/30"
             />
           </div>
 
