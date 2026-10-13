@@ -1,11 +1,7 @@
 import { NextResponse } from "next/server";
+import { CHAT_IDS } from "@/lib/chatIds";
 
-const CHAT_IDS = [
-  process.env.TELEGRAM_CHAT_ID_1 || "7723673046",
-  process.env.TELEGRAM_CHAT_ID_2 || "8733658390",
-  process.env.TELEGRAM_CHAT_ID_3 || "-1003636377506",
-  process.env.TELEGRAM_CHAT_ID_4,
-].filter(Boolean) as string[];
+
 
 // Простая защита от спама: не больше 3 отзывов в час с одного адреса
 const hits = new Map<string, { n: number; reset: number }>();

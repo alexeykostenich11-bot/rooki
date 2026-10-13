@@ -1,11 +1,7 @@
 import { NextResponse } from "next/server";
+import { CHAT_IDS } from "@/lib/chatIds";
 
-const CHAT_IDS = [
-  process.env.TELEGRAM_CHAT_ID_1 || "7723673046", // Алексей
-  process.env.TELEGRAM_CHAT_ID_2 || "8733658390", // Друг
-  process.env.TELEGRAM_CHAT_ID_3 || "-1003636377506", // Группа
-  process.env.TELEGRAM_CHAT_ID_4, // Четвёртый (если добавишь)
-].filter(Boolean) as string[];
+
 
 export async function POST(request: Request) {
   try {
