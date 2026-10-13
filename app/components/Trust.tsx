@@ -1,4 +1,5 @@
 import { reviews } from "@/lib/reviews";
+import { ReviewForm } from "./ReviewForm";
 import { Section } from "./Section";
 
 const facts = [
@@ -43,13 +44,22 @@ export function Trust() {
         ))}
       </div>
 
-      {reviews.length > 0 && (
-        <div className="mt-10 grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+      <div id="reviews" className="mt-12 scroll-mt-24">
+        <h3 className="mb-6 text-xl font-semibold tracking-tight md:text-2xl">
+          Отзывы клиентов
+        </h3>
+        <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
           {reviews.map((r) => (
             <figure
-              key={r.name + r.object}
+              key={r.name + r.object + r.text.slice(0, 12)}
               className="rounded-3xl border border-neutral-200/80 bg-neutral-50 p-6"
             >
+              {r.rating ? (
+                <p className="mb-3 text-lg leading-none text-amber-400" aria-label={`Оценка ${r.rating} из 5`}>
+                  {"★".repeat(r.rating)}
+                  <span className="text-neutral-300">{"★".repeat(5 - r.rating)}</span>
+                </p>
+              ) : null}
               <blockquote className="text-sm leading-relaxed text-neutral-700">
                 {r.text}
               </blockquote>
@@ -61,8 +71,16 @@ export function Trust() {
               </figcaption>
             </figure>
           ))}
+          <div className={reviews.length === 0 ? "md:col-span-2 lg:col-span-3 lg:max-w-xl" : ""}>
+            {reviews.length === 0 && (
+              <p className="mb-4 text-sm text-neutral-500">
+                Здесь появятся отзывы наших клиентов. Работали с нами? Расскажите, как всё прошло.
+              </p>
+            )}
+            <ReviewForm />
+          </div>
         </div>
-      )}
+      </div>
     </Section>
   );
 }

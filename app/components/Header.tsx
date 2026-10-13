@@ -7,7 +7,7 @@ const navItems = [
   { href: "/#projects", label: "Проекты" },
   { href: "/#services", label: "Услуги" },
   { href: "/#process", label: "Процесс" },
-  { href: "/register", label: "Регистрация" },
+  { href: "/#reviews", label: "Отзывы" },
 ];
 
 export function Header() {

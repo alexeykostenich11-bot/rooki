@@ -10,7 +10,7 @@ const navItems = [
   { href: "/#services", label: "Услуги" },
   { href: "/#process", label: "Процесс" },
   { href: "/#contact", label: "Заявка" },
-  { href: "/register", label: "Регистрация" },
+  { href: "/#reviews", label: "Отзывы" },
 ];
 
 export function MobileMenu() {

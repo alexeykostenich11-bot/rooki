@@ -1,7 +1,10 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  /* config options here */
+  async redirects() {
+    // Старая страница регистрации мастеров больше не нужна
+    return [{ source: "/register", destination: "/", permanent: false }];
+  },
 };
 
 export default nextConfig;
