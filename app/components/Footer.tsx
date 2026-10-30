@@ -1,4 +1,5 @@
 import { links, phone } from "@/lib/links";
+import { AnalyticsSettings } from "./ContactActions";
 import { Logo } from "./Logo";
 
 const qrCodes = [
@@ -12,7 +13,7 @@ const qrCodes = [
 
 export function Footer() {
   return (
-    <footer className="border-t border-neutral-200/80 bg-white safe-bottom">
+    <footer className="pb-24 md:pb-0 border-t border-neutral-200/80 bg-white safe-bottom">
       <div className="mx-auto flex max-w-6xl flex-col gap-8 px-4 py-12 sm:px-6 md:flex-row md:items-end md:justify-between md:px-8 md:py-16">
         <div>
           <Logo />
@@ -23,7 +24,7 @@ export function Footer() {
             href={`tel:${phone.tel}`}
             className="mt-2 inline-block text-sm font-medium text-neutral-950 transition-colors hover:text-neutral-600"
           >
-            {phone.display}
+            Алексей · {phone.display}
           </a>
         </div>
 
@@ -65,6 +66,7 @@ export function Footer() {
           ))}
         </div>
       </div>
+      <div className="mx-auto flex max-w-6xl flex-wrap gap-5 px-4 pb-8 text-xs text-neutral-500 sm:px-6 md:px-8"><a href="/privacy" className="underline">Данные заявки</a><AnalyticsSettings /></div>
     </footer>
   );
 }

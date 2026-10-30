@@ -14,11 +14,12 @@ export async function sendToAll(text: string) {
       try {
         const res = await fetch(`https://api.telegram.org/bot${token}/sendMessage`, {
           method: "POST",
+          signal: AbortSignal.timeout(10000),
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({ chat_id, text }),
         });
         const data = await res.json().catch(() => ({}));
-        if (!res.ok || data?.ok === false) {
+        if (!res.ok || data?.ok !== true) {
           console.error(
             `[telegram] не доставлено в ${chat_id}: ${data?.description ?? res.status}` +
               (data?.parameters?.migrate_to_chat_id
@@ -28,8 +29,8 @@ export async function sendToAll(text: string) {
           return false;
         }
         return true;
-      } catch (e) {
-        console.error(`[telegram] ошибка отправки в ${chat_id}:`, e);
+      } catch {
+        console.error(`[telegram] ошибка или таймаут отправки в ${chat_id}`);
         return false;
       }
     })

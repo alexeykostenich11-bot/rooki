@@ -1,80 +1,8 @@
-import { links } from "@/lib/links";
-import { site } from "@/lib/site";
-
+import Image from "next/image";
+import { links, phone } from "@/lib/links";
 export function Hero() {
-  return (
-    <section className="relative overflow-hidden pt-24 pb-16 sm:pt-28 sm:pb-20 md:pt-36 md:pb-28">
-      <div className="pointer-events-none absolute inset-0 -z-10">
-        <div className="absolute top-0 left-1/2 h-[360px] w-[min(800px,120vw)] -translate-x-1/2 rounded-full bg-neutral-100 blur-3xl sm:h-[480px]" />
-        <div className="absolute top-32 right-0 h-48 w-48 rounded-full bg-neutral-50 blur-2xl sm:h-64 sm:w-64" />
-      </div>
-
-      <div className="mx-auto w-full max-w-6xl px-4 sm:px-6 md:px-8">
-        <div className="mx-auto max-w-3xl text-center">
-          <p className="animate-fade-up mb-5 text-xs font-medium tracking-[0.3em] text-neutral-400 uppercase sm:mb-6 sm:text-sm">
-            {site.name} · {site.tagline}
-          </p>
-          <h1 className="animate-fade-up animation-delay-100 text-[1.75rem] leading-[1.15] font-semibold tracking-tight text-neutral-950 sm:text-4xl md:text-6xl md:leading-[1.08]">
-            Ремонт квартир в Москве под ключ: смета до старта, одна точка ответственности.
-          </h1>
-          <p className="animate-fade-up animation-delay-200 mx-auto mt-5 max-w-2xl text-base leading-relaxed text-neutral-500 sm:mt-6 sm:text-lg md:mt-8 md:text-xl">
-            Посчитаем стоимость за минуту, выедем на замер и зафиксируем цену и
-            сроки в договоре. Фото и видео с объекта каждую неделю.
-          </p>
-
-          <div className="animate-fade-up animation-delay-300 mt-8 flex flex-col gap-3 sm:mt-10 md:mt-12">
-            <a
-              href="#calc"
-              className="inline-flex h-12 w-full items-center justify-center rounded-full bg-neutral-950 px-7 text-sm font-medium text-white transition-all hover:bg-neutral-800 hover:shadow-xl hover:shadow-neutral-950/15 active:scale-[0.98] sm:w-auto sm:self-center"
-            >
-              Рассчитать стоимость за минуту
-            </a>
-            <a
-              href="#projects"
-              className="inline-flex h-12 w-full items-center justify-center rounded-full border border-neutral-200 bg-white px-7 text-sm font-medium text-neutral-950 transition-all hover:border-neutral-300 hover:bg-neutral-50 active:scale-[0.98] sm:w-auto sm:self-center"
-            >
-              Посмотреть проекты
-            </a>
-            <a
-              href={links.telegram}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex h-12 w-full items-center justify-center rounded-full px-4 text-sm font-medium text-neutral-500 transition-all hover:text-neutral-950 active:scale-[0.98] sm:w-auto sm:self-center sm:px-7"
-            >
-              <span className="sm:hidden">Написать руководителю →</span>
-              <span className="hidden sm:inline">
-                Связаться с руководителем проекта →
-              </span>
-            </a>
-          </div>
-        </div>
-
-        <div className="animate-fade-up animation-delay-400 mx-auto mt-12 max-w-4xl sm:mt-16 md:mt-24">
-          <div className="rounded-[1.75rem] border border-neutral-200/80 bg-white p-2 shadow-[0_24px_80px_-12px_rgba(0,0,0,0.08)] sm:rounded-[2rem] md:rounded-[2.5rem]">
-            <div className="rounded-[1.25rem] bg-neutral-50 p-6 sm:rounded-[1.5rem] sm:p-8 md:rounded-[2rem] md:p-12">
-              <div className="grid gap-6 sm:grid-cols-3 sm:gap-4">
-                {[
-                  { value: "1", label: "ответственный за весь проект" },
-                  { value: "15 мин", label: "ответ на заявку" },
-                  { value: "100%", label: "прозрачная смета" },
-                ].map((item) => (
-                  <div
-                    key={item.label}
-                    className="border-b border-neutral-200/70 pb-5 text-center last:border-b-0 last:pb-0 sm:border-b-0 sm:pb-0 sm:text-left"
-                  >
-                    <p className="text-2xl font-semibold tracking-tight text-neutral-950 sm:text-3xl md:text-4xl">
-                      {item.value}
-                    </p>
-                    <p className="mt-2 text-sm leading-relaxed text-neutral-500">
-                      {item.label}
-                    </p>
-                  </div>
-                ))}
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-  );
+  return <section className="overflow-hidden pt-28 pb-12 md:pt-36 md:pb-20"><div className="mx-auto max-w-6xl px-4 sm:px-6 md:px-8"><div className="grid items-center gap-9 lg:grid-cols-[1.1fr_1fr] lg:gap-12">
+    <div><p className="text-xs font-medium uppercase tracking-[0.2em] text-neutral-500">ROOKI · Москва и Московская область</p><h1 className="mt-5 text-4xl leading-[1.12] font-semibold tracking-tight sm:text-5xl md:text-6xl">Ремонт квартиры.<br />С понятной сметой<br />и ответственным<br className="hidden sm:block" /> за результат.</h1><p className="mt-6 max-w-xl text-base leading-relaxed text-neutral-600">Новостройка или вторичка — от черновых работ до готового интерьера. Согласуем объём работ, стоимость и этапы до начала ремонта.</p><div className="mt-7 flex flex-col gap-3 sm:flex-row"><a className="inline-flex min-h-12 items-center justify-center rounded-full bg-neutral-950 px-6 text-sm font-medium text-white hover:bg-neutral-800" href="#calc">Прикинуть стоимость</a><a className="inline-flex min-h-12 items-center justify-center rounded-full border border-neutral-300 px-6 text-sm font-medium" href={links.whatsapp} target="_blank" rel="noopener noreferrer">Отправить план на расчёт</a></div><div className="mt-6 flex flex-wrap items-center gap-x-5 gap-y-2 text-sm"><a className="font-medium" href={`tel:${phone.tel}`}>Алексей · {phone.display}</a><a className="text-neutral-500 underline underline-offset-4" href="#projects">Посмотреть выполненные работы</a></div></div>
+    <figure className="relative m-0 overflow-hidden rounded-3xl bg-neutral-100"><Image src="/projects/gostinaya-kamin.jpg" alt="Гостиная с камином — выполненная работа ROOKI" width={900} height={1100} sizes="(max-width: 1023px) 100vw, 48vw" preload className="aspect-[4/3] w-full object-cover lg:aspect-[4/5]" /><figcaption className="absolute inset-x-4 bottom-4 rounded-2xl bg-white/95 px-5 py-4 text-sm backdrop-blur"><span className="block text-xs text-neutral-500">Из галереи выполненных работ</span><span className="mt-1 block font-medium">Гостиная · камин и отделка</span></figcaption></figure>
+  </div><div className="mt-10 grid gap-4 border-y border-neutral-200 py-6 text-sm sm:grid-cols-3"><p><span className="block font-semibold">Смета до начала</span><span className="mt-1 block text-neutral-500">Состав работ и объёмы по вашему объекту</span></p><p><span className="block font-semibold">Связь с командой</span><span className="mt-1 block text-neutral-500">Обсуждаем ремонт напрямую</span></p><p><span className="block font-semibold">Фото и видео работ</span><span className="mt-1 block text-neutral-500">Можно оценить подход до обращения</span></p></div></div></section>;
 }

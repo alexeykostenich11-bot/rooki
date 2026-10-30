@@ -1,4 +1,4 @@
-import { links } from "@/lib/links";
+import { links, phone } from "@/lib/links";
 import { Logo } from "./Logo";
 import { MobileMenu } from "./MobileMenu";
 
@@ -30,6 +30,7 @@ export function Header() {
         </nav>
 
         <div className="flex items-center gap-2 sm:gap-3">
+          <a href={`tel:${phone.tel}`} className="hidden text-sm font-medium lg:block">{phone.display}</a>
           <a
             href={links.telegram}
             target="_blank"

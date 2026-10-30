@@ -1,14 +1,16 @@
 import type { Metadata, Viewport } from "next";
 import { site } from "@/lib/site";
 import "./globals.css";
+import { Analytics } from "./components/Analytics";
 
 export const metadata: Metadata = {
   metadataBase: new URL(site.url),
   title: {
-    default: site.shortTitle,
+    default: site.title,
     template: `%s · ${site.name}`,
   },
   description: site.description,
+  alternates: { canonical: "/" },
   applicationName: site.name,
   appleWebApp: {
     capable: true,
@@ -50,6 +52,7 @@ export default function RootLayout({
     <html lang="ru" className="scroll-smooth">
       <body className="min-h-screen bg-[#FAFAFA] font-sans text-neutral-950 antialiased">
         {children}
+        <Analytics />
       </body>
     </html>
   );

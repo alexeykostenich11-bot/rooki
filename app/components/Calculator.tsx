@@ -1,18 +1,23 @@
 "use client";
 
-import { FormEvent, useMemo, useState } from "react";
+import { FormEvent, useMemo, useRef, useState } from "react";
 import {
   MAX_AREA,
   MIN_AREA,
   objectTypes,
   repairTypes,
 } from "@/lib/pricing";
+import { goal, leadSource } from "@/lib/analytics";
+import { phone } from "@/lib/links";
+import { LeadFields } from "./LeadFields";
 import { Section } from "./Section";
 
 const rub = (n: number) =>
   new Intl.NumberFormat("ru-RU").format(Math.round(n / 1000) * 1000);
 
 export function Calculator() {
+  const busy = useRef(false);
+  const [error, setError] = useState("");
   const [area, setArea] = useState(50);
   const [repairId, setRepairId] = useState<string>(repairTypes[2].id);
   const [objectId, setObjectId] = useState<string>(objectTypes[0].id);
@@ -35,6 +40,9 @@ export function Calculator() {
 
   async function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
+    if (busy.current) return;
+    busy.current = true;
+    setError("");
     const form = event.currentTarget;
     const fd = new FormData(form);
     setStatus("sending");
@@ -42,8 +50,12 @@ export function Calculator() {
       const response = await fetch("/api/contact", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
+        signal: AbortSignal.timeout(20000),
         body: JSON.stringify({
           name: fd.get("name"),
+          website: fd.get("website"),
+          consent: fd.get("consent") === "on",
+          source: leadSource("calculator"),
           phone: fd.get("phone"),
           area: `${area} м²`,
           objectType: object.title,
@@ -53,13 +65,17 @@ export function Calculator() {
             .join("\n\n"),
         }),
       });
-      if (response.ok) {
+      const data = await response.json();
+      if (response.ok && data.success === true) {
+        goal("lead_success", { form: "calculator" });
         setStatus("done");
         form.reset();
-      } else setStatus("error");
-    } catch {
+      } else throw new Error(data.error || "Не удалось отправить заявку.");
+    } catch (e) {
       setStatus("error");
-    }
+      setError(e instanceof Error && e.name === "Error" ? e.message : "Не удалось подтвердить доставку заявки.");
+      goal("lead_error", { form: "calculator" });
+    } finally { busy.current = false; }
   }
 
   return (
@@ -87,6 +103,8 @@ export function Calculator() {
               step={1}
               value={area}
               onChange={(e) => setArea(Number(e.target.value))}
+              onPointerUp={() => goal("calc_interaction")}
+              onKeyUp={() => goal("calc_interaction")}
               aria-label="Площадь, м²"
               className="h-2 w-full cursor-pointer accent-neutral-950"
             />
@@ -105,7 +123,7 @@ export function Calculator() {
                 <button
                   key={r.id}
                   type="button"
-                  onClick={() => setRepairId(r.id)}
+                  onClick={() => { setRepairId(r.id); goal("calc_interaction"); }}
                   aria-pressed={repairId === r.id}
                   className={`rounded-2xl border px-4 py-3 text-left transition-all ${
                     repairId === r.id
@@ -165,14 +183,17 @@ export function Calculator() {
             <input
               type="text"
               name="name"
-              required
               autoComplete="name"
-              placeholder="Ваше имя"
+              maxLength={80}
+              aria-label="Ваше имя (необязательно)"
+              placeholder="Имя (необязательно)"
               className="h-12 w-full rounded-2xl border border-white/10 bg-white/5 px-4 text-base text-white outline-none placeholder:text-neutral-500 focus:border-white/30"
             />
             <input
               type="tel"
               name="phone"
+              aria-label="Телефон"
+              maxLength={30}
               required
               inputMode="tel"
               autoComplete="tel"
@@ -181,6 +202,7 @@ export function Calculator() {
             />
             <textarea
               name="comment"
+              aria-label="Комментарий к расчёту"
               rows={3}
               maxLength={1000}
               placeholder="Комментарий: район, что нужно сделать, есть ли дизайн-проект"
@@ -188,6 +210,7 @@ export function Calculator() {
             />
           </div>
 
+          <LeadFields dark />
           <button
             type="submit"
             disabled={status === "sending" || status === "done"}
@@ -196,16 +219,14 @@ export function Calculator() {
             {status === "sending"
               ? "Отправляем…"
               : status === "done"
-                ? "Заявка отправлена — скоро свяжемся"
+                ? "Заявка доставлена команде"
                 : "Получить точную смету"}
           </button>
           {status === "error" && (
-            <p className="mt-3 text-sm text-red-400">
-              Не получилось отправить. Напишите нам в Telegram.
-            </p>
+            <p role="alert" className="mt-3 text-sm text-red-300">{error} <a className="underline" href={`tel:${phone.tel}`}>Позвонить Алексею</a></p>
           )}
           <p className="mt-auto pt-6 text-xs text-neutral-500">
-            Перезвоним в течение 15 минут и уточним детали.
+            Алексей уточнит детали для сметы. Для срочного вопроса позвоните по номеру внизу страницы.
           </p>
         </form>
       </div>

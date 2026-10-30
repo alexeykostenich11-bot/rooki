@@ -122,3 +122,6 @@ body {
 section[id] {
   scroll-margin-top: 5rem;
 }
+
+section[id] { scroll-margin-top: 6rem; }
+a:focus-visible, button:focus-visible, summary:focus-visible { outline: 2px solid currentColor; outline-offset: 4px; }

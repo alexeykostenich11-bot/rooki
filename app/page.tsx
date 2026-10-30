@@ -8,7 +8,8 @@ import { HowWeWork } from "./components/HowWeWork";
 import { Projects } from "./components/Projects";
 import { Services } from "./components/Services";
 import { Trust } from "./components/Trust";
-import { WhyChooseUs } from "./components/WhyChooseUs";
+import { Questions } from "./components/Questions";
+import { ContactActions } from "./components/ContactActions";
 
 export default function Home() {
   return (
@@ -22,10 +23,11 @@ export default function Home() {
         <Services />
         <HowWeWork />
         <Trust />
-        <WhyChooseUs />
+        <Questions />
         <ContactForm />
       </main>
       <Footer />
+      <ContactActions />
     </>
   );
 }

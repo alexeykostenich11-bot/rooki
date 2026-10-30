@@ -7,6 +7,6 @@ export const site = {
   description:
     "Организуем ремонт квартир под ключ в Москве: смета, материалы, контроль работ и мебель. От первой сметы до готового пространства.",
   /** Задаётся в переменной NEXT_PUBLIC_SITE_URL на хостинге, когда подключён домен .ru */
-  url: process.env.NEXT_PUBLIC_SITE_URL || "https://rooki-site-xi.vercel.app",
+  url: process.env.NEXT_PUBLIC_SITE_URL || "https://www.rooki-remont.ru",
   locale: "ru_RU",
 };

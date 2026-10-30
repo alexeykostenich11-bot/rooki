@@ -45,9 +45,7 @@ export function Trust() {
       </div>
 
       <div id="reviews" className="mt-12 scroll-mt-24">
-        <h3 className="mb-6 text-xl font-semibold tracking-tight md:text-2xl">
-          Отзывы клиентов
-        </h3>
+        {reviews.length > 0 && <h3 className="mb-6 text-xl font-semibold tracking-tight md:text-2xl">Отзывы клиентов</h3>}
         <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
           {reviews.map((r) => (
             <figure
@@ -74,10 +72,10 @@ export function Trust() {
           <div className={reviews.length === 0 ? "md:col-span-2 lg:col-span-3 lg:max-w-xl" : ""}>
             {reviews.length === 0 && (
               <p className="mb-4 text-sm text-neutral-500">
-                Здесь появятся отзывы наших клиентов. Работали с нами? Расскажите, как всё прошло.
+                Работали с ROOKI? Поделитесь впечатлениями о ремонте.
               </p>
             )}
-            <ReviewForm />
+            <details><summary className="cursor-pointer text-sm font-medium underline">Оставить отзыв о выполненной работе</summary><div className="mt-5"><ReviewForm /></div></details>
           </div>
         </div>
       </div>

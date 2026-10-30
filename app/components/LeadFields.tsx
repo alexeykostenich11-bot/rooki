@@ -1,0 +1,3 @@
+export function LeadFields({ dark = false }: { dark?: boolean }) {
+  return <><div className="hidden" aria-hidden="true"><label>Ваш сайт<input name="website" autoComplete="off" tabIndex={-1} /></label></div><label className={`mt-4 flex items-start gap-3 text-xs leading-relaxed ${dark ? "text-neutral-300" : "text-neutral-600"}`}><input type="checkbox" name="consent" required className="mt-0.5 h-4 w-4 shrink-0 accent-neutral-500" /><span>Согласен на обработку указанных данных для ответа на заявку. <a href="/privacy" target="_blank" rel="noopener noreferrer" className="underline">Как используются данные</a></span></label></>;
+}
