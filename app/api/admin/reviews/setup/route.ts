@@ -4,9 +4,18 @@ import { redis, reviewStorageReady } from '@/lib/review-store';
 import { telegramCall } from '@/lib/review-moderation';
 import { createAdminLink } from '@/lib/review-admin';
 import { initialReview } from '@/lib/initial-review';
+export async function GET(){
+  return new Response('<!doctype html><html lang="ru"><meta charset="utf-8"><meta name="robots" content="noindex,nofollow"><meta name="referrer" content="no-referrer"><title>Подключение отзывов ROOKI</title><body style="font:16px Arial;background:#f5f5f7;padding:60px 24px"><main style="max-width:500px;margin:auto;background:white;border:1px solid #ddd;border-radius:24px;padding:32px"><p>ROOKI · настройка владельца</p><h1>Подключить отзывы</h1><p>Одноразовая настройка базы, Telegram и первого подтверждённого отзыва. Секрет не даёт доступ к остальным настройкам сайта.</p><form method="post"><label>Ключ настройки<input type="password" name="setup" required autocomplete="off" style="display:block;margin:16px 0;width:90%;padding:12px"></label><button style="background:#111;color:white;border:0;border-radius:30px;padding:14px 24px">Подключить</button></form></main></body></html>',{headers:{'Content-Type':'text/html; charset=utf-8','Cache-Control':'no-store','Content-Security-Policy':"default-src 'none'; style-src 'unsafe-inline'; form-action 'self'; frame-ancestors 'none'"}});
+}
 // One-time installation endpoint. Never returns the bot or database credentials.
 export async function POST(request:Request){
-  const expected=process.env.ROOKI_REVIEW_SETUP_SECRET,actual=request.headers.get('x-rooki-setup');
+  let actual=request.headers.get('x-rooki-setup');
+  if(!actual&&request.headers.get('content-type')?.includes('application/x-www-form-urlencoded')){
+    if(request.headers.get('origin')!==new URL(request.url).origin)return NextResponse.json({error:'forbidden'},{status:403});
+    const body=await request.text();if(body.length>200)return NextResponse.json({error:'invalid'},{status:400});
+    actual=new URLSearchParams(body).get('setup');
+  }
+  const expected=process.env.ROOKI_REVIEW_SETUP_SECRET;
   if(!expected||!actual||Buffer.byteLength(expected)!==Buffer.byteLength(actual)||!timingSafeEqual(Buffer.from(expected),Buffer.from(actual)))return NextResponse.json({error:'forbidden'},{status:403});
   if(!reviewStorageReady())return NextResponse.json({error:'storage_unconfigured'},{status:503});
   try{
