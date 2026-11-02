@@ -6,10 +6,11 @@ type VisitStats={startedAt:string|null;today:{views:number;visitors:number};week
 const labels: Record<Filter,string>={pending:'На проверке',published:'Опубликованы',rejected:'Отклонены'};
 export function ReviewsAdmin(){
   const [stats,setStats]=useState<VisitStats|null>(null);
+  const [csrf,setCsrf]=useState('');
   const [items,setItems]=useState<StoredReview[]>([]),[auth,setAuth]=useState(false),[loading,setLoading]=useState(true),[access,setAccess]=useState(''),[error,setError]=useState(''),[filter,setFilter]=useState<Filter>('pending'),[search,setSearch]=useState(''),[busy,setBusy]=useState('');
   async function refresh(){
     setError('');
-    try{const [r,s]=await Promise.all([fetch('/api/admin/reviews',{cache:'no-store'}),fetch('/api/admin/analytics',{cache:'no-store'})]);if(r.status===401){setAuth(false);return;}if(!r.ok)throw Error();const d=await r.json();setItems(d.reviews);setStats(s.ok?await s.json():null);setAuth(true);}catch{setError('Не удалось загрузить отзывы. Попробуйте обновить.');}finally{setLoading(false);}
+    try{const [r,s]=await Promise.all([fetch('/api/admin/reviews',{cache:'no-store'}),fetch('/api/admin/analytics',{cache:'no-store'})]);if(r.status===401){setAuth(false);return;}if(!r.ok)throw Error();const d=await r.json();setItems(d.reviews);setCsrf(d.csrf);setStats(s.ok?await s.json():null);setAuth(true);}catch{setError('Не удалось загрузить отзывы. Попробуйте обновить.');}finally{setLoading(false);}
   }
   useEffect(()=>{
     const token=new URLSearchParams(window.location.hash.slice(1)).get('access');
@@ -18,9 +19,9 @@ export function ReviewsAdmin(){
   async function login(){setBusy('login');setError('');try{const r=await fetch('/api/admin/reviews/session',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({token:access})});if(!r.ok){setError(r.status===401?'Ссылка уже использована или истекла. Отправьте боту /reviews для новой ссылки.':'Вход пока недоступен. Попробуйте позже.');return;}setAccess('');await refresh();}catch{setError('Не удалось войти. Проверьте подключение.');}finally{setBusy('');}}
   async function decide(item:StoredReview,status:'published'|'rejected'){
     if(!window.confirm(status==='published'?`Опубликовать отзыв ${item.name} на сайте?`:'Отклонить отзыв и скрыть его с сайта?'))return;
-    setBusy(item.id);setError('');try{const r=await fetch('/api/admin/reviews',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({id:item.id,status})});if(!r.ok){if(r.status===401)setAuth(false);throw Error();}await refresh();}catch{setError('Изменение не подтверждено. Обновите список и попробуйте снова.');}finally{setBusy('');}
+    setBusy(item.id);setError('');try{const r=await fetch('/api/admin/reviews',{method:'POST',headers:{'Content-Type':'application/json','x-rooki-csrf':csrf},body:JSON.stringify({id:item.id,status})});if(!r.ok){if(r.status===401)setAuth(false);throw Error();}await refresh();}catch{setError('Изменение не подтверждено. Обновите список и попробуйте снова.');}finally{setBusy('');}
   }
-  async function logout(){setBusy('logout');try{const r=await fetch('/api/admin/reviews/session',{method:'DELETE'});if(!r.ok)throw Error();setAuth(false);setItems([]);}catch{setError('Не удалось выйти. Попробуйте ещё раз.');}finally{setBusy('');}}
+  async function logout(){setBusy('logout');try{const r=await fetch('/api/admin/reviews/session',{method:'DELETE',headers:{'x-rooki-csrf':csrf}});if(!r.ok)throw Error();setAuth(false);setItems([]);setCsrf('');}catch{setError('Не удалось выйти. Попробуйте ещё раз.');}finally{setBusy('');}}
   const found=items.filter(r=>r.status===filter&&`${r.name} ${r.object} ${r.text}`.toLowerCase().includes(search.toLowerCase()));
   return <main className="min-h-screen bg-[#f5f5f7] px-5 py-8 text-neutral-950 sm:py-12"><div className="mx-auto max-w-4xl">
     <header className="mb-10 flex items-center justify-between"><a href="/" className="text-lg font-semibold tracking-tight">ROOKI<span className="ml-3 text-sm font-normal text-neutral-400">Отзывы</span></a>{auth&&<button onClick={logout} disabled={!!busy} className="rounded-full border border-neutral-200 bg-white px-4 py-2 text-sm">Выйти</button>}</header>

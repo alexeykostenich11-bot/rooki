@@ -31,6 +31,14 @@ export async function logoutReviewAdmin() {
   const token = (await cookies()).get(adminCookie)?.value;
   if (token && /^[a-f0-9]{64}$/.test(token)) await redis(['DEL', `rooki:review:session:${hash(token)}`]);
 }
+export async function adminCsrf() {
+  const token = (await cookies()).get(adminCookie)?.value;
+  return token && /^[a-f0-9]{64}$/.test(token) ? hash('csrf:' + token) : null;
+}
+export async function validAdminCsrf(request: Request) {
+  const expected = await adminCsrf();
+  return Boolean(expected && request.headers.get('x-rooki-csrf') === expected);
+}
 export function sameOrigin(request: Request) {
   const origin = request.headers.get('origin');
   if (!origin) return false;

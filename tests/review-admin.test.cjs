@@ -7,6 +7,6 @@ test('owner login link is single-use; cookies are checked against current owner'
  }finally{if(before===undefined)delete process.env.TELEGRAM_REVIEW_OWNER_ID;else process.env.TELEGRAM_REVIEW_OWNER_ID=before;}
 });
 test('admin API rejects anonymous reads and cross-origin writes before storage access',async()=>{
- let reads=0,writes=0;const api=load('app/api/admin/reviews/route.ts',{'next/server':{NextResponse:{json:(d,i)=>Response.json(d,i)}},'@/lib/review-admin':{reviewAdmin:async()=>null,sameOrigin:()=>false},'@/lib/review-store':{allReviews:async()=>{reads++;return[];},moderateReview:async()=>{writes++;}}});
+ let reads=0,writes=0;const api=load('app/api/admin/reviews/route.ts',{'next/server':{NextResponse:{json:(d,i)=>Response.json(d,i)}},'@/lib/review-admin':{reviewAdmin:async()=>null,validAdminCsrf:async()=>false},'@/lib/review-store':{allReviews:async()=>{reads++;return[];},moderateReview:async()=>{writes++;}}});
  assert.equal((await api.GET()).status,401);assert.equal((await api.POST(new Request('https://example.test',{method:'POST',body:'{}'}))).status,403);assert.equal(reads,0);assert.equal(writes,0);
 });
