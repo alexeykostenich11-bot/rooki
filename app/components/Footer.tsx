@@ -1,5 +1,4 @@
 import { links, phone } from "@/lib/links";
-import { AnalyticsSettings } from "./ContactActions";
 import { Logo } from "./Logo";
 
 const qrCodes = [
@@ -66,7 +65,7 @@ export function Footer() {
           ))}
         </div>
       </div>
-      <div className="mx-auto flex max-w-6xl flex-wrap gap-5 px-4 pb-8 text-xs text-neutral-500 sm:px-6 md:px-8"><a href="/privacy" className="underline">Данные заявки</a><AnalyticsSettings /></div>
+      <div className="mx-auto flex max-w-6xl flex-wrap gap-5 px-4 pb-8 text-xs text-neutral-500 sm:px-6 md:px-8"><a href="/privacy" className="underline">Данные заявки</a></div>
     </footer>
   );
 }

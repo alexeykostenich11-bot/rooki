@@ -1,61 +1,21 @@
-"use client";
-import Script from "next/script";
-import { usePathname } from "next/navigation";
-import { useEffect, useRef, useState } from "react";
-import { goal, METRIKA_ID } from "@/lib/analytics";
+'use client';
+import { usePathname } from 'next/navigation';
+import { useEffect, useRef } from 'react';
+
+// Aggregate page views only. No persistent visitor ID or third-party analytics.
 export function Analytics() {
   const pathname = usePathname();
-  const [choice, setChoice] = useState<string | null>(null);
-  const initialized = useRef(false);
-  const eventId = useRef('');
+  const event = useRef({ path: '', id: '' });
   useEffect(() => {
-    if (choice !== 'yes' || pathname.startsWith('/admin')) return;
-    try {
-      let visitor = localStorage.getItem('rooki-visitor');
-      if (!visitor) { visitor = crypto.randomUUID(); localStorage.setItem('rooki-visitor', visitor); }
-      eventId.current ||= crypto.randomUUID();
-      void fetch('/api/analytics/visit', {method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({visitor,event:eventId.current,consent:true}),keepalive:true}).catch(()=>{});
-    } catch {}
-  }, [choice, pathname]);
-  useEffect(() => {
-    if (choice !== "yes" || window.ym || METRIKA_ID <= 0) return;
-    const queue: NonNullable<Window["ym"]> = function (...args: unknown[]) { (queue.a ||= []).push(args); };
-    queue.l = Date.now();
-    window.ym = queue;
-  }, [choice]);
-  useEffect(() => {
-    try { setChoice(localStorage.getItem("rooki-analytics") || "ask"); } catch { setChoice("ask"); }
-    const settings = () => setChoice("ask");
-    const clicks = (event: MouseEvent) => {
-      const link = event.target instanceof Element ? event.target.closest("a") : null;
-      const href = link?.getAttribute("href") || "";
-      if (href.startsWith("tel:")) goal("phone_click");
-      else if (/^https:\/\/(t\.me|wa\.me|max\.ru)\//.test(href)) goal("messenger_click", { channel: new URL(href).hostname });
-    };
-    window.addEventListener("rooki-analytics-settings", settings);
-    document.addEventListener("click", clicks);
-    return () => { window.removeEventListener("rooki-analytics-settings", settings); document.removeEventListener("click", clicks); };
-  }, []);
-  if (pathname.startsWith('/admin')) return null;
-  function decide(value: "yes" | "no") {
-    try { localStorage.setItem("rooki-analytics", value); } catch {}
-    setChoice(value);
-    if (value === 'no') { try { localStorage.removeItem('rooki-visitor'); } catch {} }
-    if (value === "no" && initialized.current) { window.ym?.(METRIKA_ID, "destruct"); initialized.current = false; }
-  }
-  function init() {
-    if (initialized.current || !window.ym) return;
-    initialized.current = true;
-    window.ym(METRIKA_ID, "init", { clickmap: false, trackLinks: false, webvisor: false, accurateTrackBounce: true, defer: true });
-    const url = new URL(window.location.pathname, window.location.origin);
-    const params = new URLSearchParams(window.location.search);
-    for (const key of ["utm_source", "utm_medium", "utm_campaign", "utm_content", "utm_term", "yclid"]) { const value = params.get(key); if (value) url.searchParams.set(key, value.slice(0, 200)); }
-    let referer = "";
-    try { referer = document.referrer ? new URL(document.referrer).origin : ""; } catch {}
-    window.ym(METRIKA_ID, "hit", url.href, { referer, title: document.title });
-  }
-  return <>
-    {choice === "yes" && METRIKA_ID > 0 && <Script id="yandex-metrika" strategy="afterInteractive" src="https://mc.yandex.ru/metrika/tag.js" onReady={init} />}
-    {choice === "ask" && <aside aria-label="Настройки статистики" className="fixed inset-x-4 bottom-24 z-[60] mx-auto max-w-lg rounded-2xl border border-neutral-200 bg-white p-5 text-sm shadow-lg md:bottom-4"><p>Разрешить ROOKI собирать статистику посещений{METRIKA_ID > 0 ? ' и подключить Яндекс Метрику' : ''}? Имя, телефон и текст заявки в статистику не передаём. <a className="underline" href="/privacy">Подробнее</a></p><div className="mt-4 flex gap-3"><button onClick={() => decide("yes")} className="rounded-full bg-neutral-950 px-5 py-2 text-white">Разрешить</button><button onClick={() => decide("no")} className="rounded-full border px-5 py-2">Без статистики</button></div></aside>}
-  </>;
+    // Remove identifiers left by the previous opt-in counter.
+    try { localStorage.removeItem('rooki-visitor'); localStorage.removeItem('rooki-analytics'); } catch {}
+    if (pathname.startsWith('/admin')) return;
+    if (event.current.path !== pathname) event.current = { path: pathname, id: crypto.randomUUID() };
+    void fetch('/api/analytics/visit', {
+      method: 'POST', headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ event: event.current.id }),
+      keepalive: true, referrerPolicy: 'no-referrer',
+    }).catch(() => {});
+  }, [pathname]);
+  return null;
 }
