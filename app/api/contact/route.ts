@@ -20,10 +20,10 @@ export async function POST(request: Request) {
   if ("error" in parsed) return NextResponse.json({ error: parsed.error }, { status: 400 });
   try {
     const results = await sendToAll(leadMessage(parsed.lead));
-    if (!results.some(Boolean)) return NextResponse.json({ error: "Не удалось доставить заявку. Позвоните Алексею или напишите в мессенджер." }, { status: 502 });
+    if (!results.some(Boolean)) return NextResponse.json({ error: "Не удалось доставить заявку. Позвоните нам или напишите в мессенджер." }, { status: 502 });
     return NextResponse.json({ success: true });
   } catch {
     console.error("[contact] delivery unavailable");
-    return NextResponse.json({ error: "Сервис заявок временно недоступен. Позвоните Алексею или напишите в мессенджер." }, { status: 503 });
+    return NextResponse.json({ error: "Сервис заявок временно недоступен. Позвоните нам или напишите в мессенджер." }, { status: 503 });
   }
 }

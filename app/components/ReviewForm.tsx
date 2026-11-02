@@ -42,7 +42,7 @@ export function ReviewForm() {
       <div className="rounded-3xl border border-neutral-200/80 bg-white p-6 text-center md:p-8">
         <p className="text-lg font-semibold tracking-tight">Спасибо за отзыв!</p>
         <p className="mt-2 text-sm text-neutral-500">
-          Мы проверим его и опубликуем на сайте в ближайшее время.
+          Отзыв отправлен на проверку. После подтверждения он появится на сайте.
         </p>
       </div>
     );

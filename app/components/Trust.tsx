@@ -1,4 +1,5 @@
-import { reviews } from "@/lib/reviews";
+import { reviews as originalReviews } from "@/lib/reviews";
+import { publishedReviews } from "@/lib/review-store";
 import { ReviewForm } from "./ReviewForm";
 import { Section } from "./Section";
 
@@ -21,7 +22,10 @@ const facts = [
   },
 ];
 
-export function Trust() {
+export async function Trust() {
+  let approved = [] as typeof originalReviews;
+  try { approved = await publishedReviews(); } catch { console.error('[reviews] public_read_failed'); }
+  const reviews = [...originalReviews, ...approved];
   return (
     <Section
       id="trust"

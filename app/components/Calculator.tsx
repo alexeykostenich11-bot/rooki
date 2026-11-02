@@ -223,10 +223,10 @@ export function Calculator() {
                 : "Получить точную смету"}
           </button>
           {status === "error" && (
-            <p role="alert" className="mt-3 text-sm text-red-300">{error} <a className="underline" href={`tel:${phone.tel}`}>Позвонить Алексею</a></p>
+            <p role="alert" className="mt-3 text-sm text-red-300">{error} <a className="underline" href={`tel:${phone.tel}`}>Позвонить</a></p>
           )}
           <p className="mt-auto pt-6 text-xs text-neutral-500">
-            Алексей уточнит детали для сметы. Для срочного вопроса позвоните по номеру внизу страницы.
+            Уточним детали для сметы. Для срочного вопроса позвоните по номеру внизу страницы.
           </p>
         </form>
       </div>

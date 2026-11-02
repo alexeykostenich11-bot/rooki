@@ -24,7 +24,7 @@ export function Footer() {
             href={`tel:${phone.tel}`}
             className="mt-2 inline-block text-sm font-medium text-neutral-950 transition-colors hover:text-neutral-600"
           >
-            Алексей · {phone.display}
+            {phone.display}
           </a>
         </div>
 
