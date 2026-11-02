@@ -20,7 +20,7 @@ export async function POST(request:Request){
   if(!reviewStorageReady())return NextResponse.json({error:'storage_unconfigured'},{status:503});
   try{
     if(await redis(['GET','rooki:reviews:setup-complete']))return NextResponse.json({error:'already_configured'},{status:409});
-    const origin=process.env.NEXT_PUBLIC_SITE_URL||'https://www.rooki-remont.ru';
+    const origin=new URL(request.url).origin;
     const url=new URL('/api/telegram/reviews',origin).href;
     const info=await telegramCall('getWebhookInfo',{});
     if(info.url&&info.url!==url)return NextResponse.json({error:'existing_webhook_requires_migration'},{status:409});
