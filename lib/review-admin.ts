@@ -32,5 +32,8 @@ export async function logoutReviewAdmin() {
   if (token && /^[a-f0-9]{64}$/.test(token)) await redis(['DEL', `rooki:review:session:${hash(token)}`]);
 }
 export function sameOrigin(request: Request) {
-  return request.headers.get('origin') === new URL(request.url).origin;
+  const origin = request.headers.get('origin');
+  if (!origin) return false;
+  const publicOrigin = new URL(process.env.NEXT_PUBLIC_SITE_URL || 'https://www.rooki-remont.ru').origin;
+  return origin === publicOrigin || origin === new URL(request.url).origin;
 }

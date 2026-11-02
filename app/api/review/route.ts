@@ -2,10 +2,11 @@ import { createHash } from 'node:crypto';
 import { NextResponse } from 'next/server';
 import { redis, reviewStorageReady, savePendingReview } from '@/lib/review-store';
 import { telegramCall } from '@/lib/review-moderation';
+import { sameOrigin } from '@/lib/review-admin';
 const clean = (v: unknown, max: number) => typeof v === 'string' ? v.replace(/[\u0000-\u001f]+/g, ' ').trim().slice(0, max) : '';
 export async function POST(request: Request) {
   const origin = request.headers.get('origin');
-  if (origin && origin !== new URL(request.url).origin) return NextResponse.json({ error: 'forbidden' }, { status: 403 });
+  if (origin && !sameOrigin(request)) return NextResponse.json({ error: 'forbidden' }, { status: 403 });
   const raw = await request.text();
   if (raw.length > 10000) return NextResponse.json({ error: 'oversized' }, { status: 413 });
   let data;
